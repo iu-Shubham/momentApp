@@ -24,7 +24,7 @@ class FiveDaysAheadView extends StatelessWidget {
             final dateTime = DateTime.parse(dailyTime!);
             final now = DateTime.now();
             final today = DateTime(now.year, now.month, now.day);
-            final nextDates = DateFormat('dd MMM').format(dateTime);
+            final nextDates = DateFormat('MMM dd').format(dateTime);
             bool isToday = dateTime == today;
             final todaysDate = isToday ? 'Today' : nextDates;
 
@@ -75,7 +75,6 @@ class FiveDaysAheadView extends StatelessWidget {
                             ],
                           ),
                           Text(
-                            // 'Today',
                             '${todaysDate}',
                             style: TextStyleUtil.SFPro400(fontSize: 17.kh),
                           ),
@@ -136,7 +135,6 @@ class FiveDaysAheadView extends StatelessWidget {
                                               ImageConstant.svgwave),
                                           Text(
                                             '${controller.Model.value?.hourly?.precipitation?[index]}',
-                                            //daily me precipitation not available in the model
                                             style: TextStyleUtil.SFPro400(
                                               fontSize: 13,
                                               color: ColorConstant.Opacity60,
@@ -157,9 +155,7 @@ class FiveDaysAheadView extends StatelessWidget {
                                               ImageConstant.svgwind),
                                           Obx(
                                             () => Text(
-                                              // '${controller.Model.value?.daily!.weathercode?[index]} m/s',
                                               '${controller.Model.value?.hourly!.windspeed10m?[index]}',
-                                              // windspeed daily not in model
                                               style: TextStyleUtil.SFPro400(
                                                 fontSize: 13,
                                                 color: ColorConstant.Opacity60,

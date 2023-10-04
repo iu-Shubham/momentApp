@@ -6,8 +6,6 @@ import '../../../services/dio/api_service.dart';
 import '../../../weather model/WeatherData.dart';
 
 class HomeController extends GetxController {
-  // WeatherData model = WeatherData();
-  //
   Rxn<WeatherData> Model = Rxn();
   RxString currentCity = "".obs;
   var weatherData = {}.obs;
@@ -47,10 +45,7 @@ class HomeController extends GetxController {
           .then((List<Placemark> placemarks) {
         Placemark place = placemarks[0];
         currentCity.value = place.locality ?? '';
-        // print(currentCity.value);
         print(place);
-        // print(latitude.value);
-        // print(longitude.value);
       });
     } catch (e) {
       // print(('error: $e'));
@@ -77,29 +72,3 @@ class HomeController extends GetxController {
     }
   }
 }
-//
-// @override
-// void onReady() {
-//   super.onReady();
-// }
-//
-// @override
-// void onClose() {
-//   super.onClose();
-// }
-//
-// void increment() => count.value++
-
-//
-
-// List<Placemark> placemark =
-//     await placemarkFromCoordinates(latitude, longitude);
-// // print(placemark);
-// Placemark place = placemark[0];
-// currentCity.value = place.locality!;
-
-//
-
-// RxBool checkLoading() => isLoading;
-// RxDouble getLatitude() => latitude;
-// RxDouble getLongitude() => longitude;

@@ -36,61 +36,62 @@ class HourlyWeather extends StatelessWidget {
             style: TextStyleUtil.SFPro600(fontSize: 17),
           ),
           8.kheightBox,
-          Expanded(
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount: controller.Model.value?.hourly?.time?.length ?? 24,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                final hourlyTime = DateTime.parse(
-                    controller.Model.value?.hourly?.time?[index] ??
-                        DateTime.now().toString());
+          Obx(
+            () => Expanded(
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                itemCount: controller.Model.value?.hourly?.time?.length ?? 24,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  final hourlyTime = DateTime.parse(
+                      controller.Model.value?.hourly?.time?[index] ??
+                          DateTime.now().toString());
 //
 //                 DateTime hour = hours[index];
 //
-                if (hourlyTime.isAfter(now) &&
-                    hourlyTime.isBefore(next24hours)) {
-                  final String timeToImage =
-                      hourlyTime.hour >= 6 && hourlyTime.hour < 12
-                          ? ImageConstant.svgsunrise
-                          : hourlyTime.hour >= 12 && hourlyTime.hour < 18
-                              ? ImageConstant.svgfullsun
-                              : hourlyTime.hour >= 18 && hourlyTime.hour < 21
-                                  ? ImageConstant.svgMoon
-                                  : ImageConstant.svgcloudmoon;
+                  if (hourlyTime.isAfter(now) &&
+                      hourlyTime.isBefore(next24hours)) {
+                    final String timeToImage =
+                        hourlyTime.hour >= 6 && hourlyTime.hour < 12
+                            ? ImageConstant.svgsunrise
+                            : hourlyTime.hour >= 12 && hourlyTime.hour < 18
+                                ? ImageConstant.svgfullsun
+                                : hourlyTime.hour >= 18 && hourlyTime.hour < 21
+                                    ? ImageConstant.svgMoon
+                                    : ImageConstant.svgcloudmoon;
 
-                  return Container(
-                    height: 116.kh,
-                    width: 64.kw,
-                    margin: EdgeInsets.only(right: 12.kw, bottom: 12.kh),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                    child: Card(
-                      color: Color(0xFF2C2C2E),
-                      child: Obx(
-                        () => Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              // '${controller.Model.value?.hourly?.time?[index]}',
-                              '${hourlyTime.hour}:00',
-                              style: TextStyleUtil.SFPro400(fontSize: 14),
-                            ),
-                            SvgPicture.asset(timeToImage),
-                            Text(
-                              '${controller.Model.value?.hourly?.temperature2m?[index].toInt()}°C',
-                              style: TextStyleUtil.SFPro400(fontSize: 14),
-                            ),
-                          ],
+                    return Container(
+                      height: 116.kh,
+                      width: 64.kw,
+                      margin: EdgeInsets.only(right: 12.kw, bottom: 12.kh),
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                      child: Card(
+                        color: Color(0xFF2C2C2E),
+                        child: Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                '${hourlyTime.hour}:00',
+                                style: TextStyleUtil.SFPro400(fontSize: 14),
+                              ),
+                              SvgPicture.asset(timeToImage),
+                              Text(
+                                '${controller.Model.value?.hourly?.temperature2m?[index].toInt()}°C',
+                                style: TextStyleUtil.SFPro400(fontSize: 14),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                } else {
-                  return SizedBox.shrink();
-                }
-                // }
-              },
+                    );
+                  } else {
+                    return SizedBox.shrink();
+                  }
+                  // }
+                },
+              ),
             ),
           ),
         ],

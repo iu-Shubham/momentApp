@@ -7,8 +7,6 @@ import '../../../constants/image_constant.dart';
 import '../../../services/colors.dart';
 import '../../../services/text_style_util.dart';
 import '../controllers/home_controller.dart';
-//
-// import 'package:task2_t2/app/modules/home/views/weather_view_new.dart';
 
 class TodayView extends GetView<HomeController> {
   const TodayView({Key? key}) : super(key: key);
@@ -47,12 +45,12 @@ class TodayView extends GetView<HomeController> {
                         Row(
                           children: [
                             Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 4),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(32),
                                   border: Border.all(
                                       color: Colors.white, width: 1)),
-                              width: 80.kw,
-                              height: 22.kh,
                               child: Center(
                                 child: Obx(
                                   () => Text(
@@ -83,7 +81,6 @@ class TodayView extends GetView<HomeController> {
                         Obx(
                           () => Text(
                             '${controller.Model.value?.currentWeather?.temperature?.toInt()}°C',
-                            // '20',
                             style: TextStyleUtil.SFPro400(fontSize: 80.kh),
                           ),
                         ),
@@ -128,12 +125,13 @@ class TodayView extends GetView<HomeController> {
                         ),
                       ],
                     ),
-                    10.kheightBox,
-                    Divider(
-                      thickness: 1.0,
-                      color: ColorConstant.Opacity30,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Divider(
+                        thickness: 1.0,
+                        color: ColorConstant.Opacity30,
+                      ),
                     ),
-                    10.kheightBox,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -171,8 +169,7 @@ class TodayView extends GetView<HomeController> {
                           ],
                         ),
                       ],
-                    ),
-                    10.kheightBox,
+                    ).paddingOnly(bottom: 10.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -195,7 +192,6 @@ class TodayView extends GetView<HomeController> {
                             ),
                           ],
                         ),
-                        // 165.kwidthBox,
                         Row(
                           children: [
                             Text(
@@ -215,13 +211,11 @@ class TodayView extends GetView<HomeController> {
                     ),
                   ],
                 ),
-              ),
-              16.kheightBox,
+              ).paddingOnly(bottom: 16.0),
               HourlyWeather(),
             ],
           ).paddingSymmetric(horizontal: 16.0, vertical: 16.0),
         ),
-        // ),
       ),
     );
   }
