@@ -31,60 +31,55 @@ class _CustomTabBarState extends State<CustomTabBar>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
-            vertical: 16.0,
-          ),
-          child: Column(
-            children: [
-              // give the tab bar a height [can change height to preferred height]
-              Container(
-                height: 24,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300]?.withOpacity(0.2),
+        child: Column(
+          children: [
+            // give the tab bar a height [can change height to preferred height]
+            Container(
+              height: 24.kh,
+              width: 365.kw,
+              decoration: BoxDecoration(
+                color: Colors.grey[300]?.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(
+                  9.0,
+                ),
+              ),
+              child: TabBar(
+                controller: _tabController,
+                // give the indicator a decoration (color and border radius)
+                indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(
-                    9.0,
+                    7.0,
                   ),
+                  color: Color(0xFF636366),
                 ),
-                child: TabBar(
-                  controller: _tabController,
-                  // give the indicator a decoration (color and border radius)
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      7.0,
-                    ),
-                    color: Color(0xFF636366),
+                // indicatorColor: Colors.blue,
+                labelColor: Colors.white,
+                unselectedLabelColor: Color(0xFFFFFFFF),
+                tabs: const [
+                  // first tab [you can add an icon using the icon property]
+                  Tab(
+                    text: 'Today',
                   ),
-                  // indicatorColor: Colors.blue,
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Color(0xFFFFFFFF),
-                  tabs: const [
-                    // first tab [you can add an icon using the icon property]
-                    Tab(
-                      text: 'Today',
-                    ),
 
-                    // second tab [you can add an icon using the icon property]
-                    Tab(
-                      text: '5 Days Ahead',
-                    ),
-                  ],
-                ),
+                  // second tab [you can add an icon using the icon property]
+                  Tab(
+                    text: '5 Days Ahead',
+                  ),
+                ],
               ),
-              // tab bar view here
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: const [
-                    // first tab bar view widget
-                    TodayView(),
-                    FiveDaysAheadView(),
-                  ],
-                ),
+            ),
+            // tab bar view here
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: const [
+                  // first tab bar view widget
+                  TodayView(),
+                  FiveDaysAheadView(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
