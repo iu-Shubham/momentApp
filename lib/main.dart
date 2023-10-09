@@ -1,4 +1,3 @@
-import 'package:task2_t2/app/components/languages.dart';
 import 'app/modules/home/bindings/home_binding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +22,6 @@ Future<void> main() async {
       debugShowCheckedModeBanner: false,
       locale: const Locale('en', 'US'),
       fallbackLocale: const Locale('en', 'US'),
-      translations: MyTranslations(),
       translationsKeys: AppTranslation.translations,
       initialRoute: AppPages.INITIAL,
       initialBinding: HomeBinding(),

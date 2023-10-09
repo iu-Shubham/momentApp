@@ -8,6 +8,7 @@ class APIManager {
           {required String latitude, required String longitude}) async =>
       await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)
           .get(Endpoints.lead, queryParameters: {
+        'timezone': 'auto',
         'current_weather': 'true',
         'latitude': latitude,
         'longitude': longitude,

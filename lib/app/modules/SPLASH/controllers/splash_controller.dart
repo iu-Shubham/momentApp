@@ -1,7 +1,4 @@
 import 'package:get/get.dart';
-import 'package:task2_t2/app/modules/home/views/today_view.dart';
-
-import '../../../components/my_tab_bar.dart';
 
 class SplashController extends GetxController {
   //TODO: Implement SplashController

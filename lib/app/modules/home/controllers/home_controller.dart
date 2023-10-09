@@ -1,6 +1,8 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import '../../../../generated/locales.g.dart';
 import '../../../services/dio/api_service.dart';
 import '../../../weather model/WeatherData.dart';
 
@@ -12,6 +14,19 @@ class HomeController extends GetxController {
   RxBool checkLoading() => isLoading;
   final RxDouble latitude = 0.0.obs;
   final RxDouble longitude = 0.0.obs;
+  DateTime now = DateTime.now();
+  DateTime next24hours = DateTime.now().add(const Duration(hours: 24));
+
+  String TodaysDate(int index) {
+    final dailyTime = apiModel.value?.daily?.time?[index];
+    final dateTime = DateTime.parse(dailyTime!);
+    final today = DateTime(now.year, now.month, now.day);
+    final nextDates = DateFormat('MMM dd').format(dateTime);
+    bool isToday = dateTime == today;
+    final currentDate = isToday ? LocaleKeys.today.tr : nextDates;
+
+    return currentDate;
+  }
 
   Future<void> getLocation() async {
     bool isServiceEnabled;
