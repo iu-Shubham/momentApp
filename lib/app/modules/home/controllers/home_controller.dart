@@ -1,12 +1,11 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-// import 'package:flutter/material.dart';
 import '../../../services/dio/api_service.dart';
 import '../../../weather model/WeatherData.dart';
 
 class HomeController extends GetxController {
-  Rxn<WeatherData> Model = Rxn();
+  Rxn<WeatherData> apiModel = Rxn();
   RxString currentCity = "".obs;
   var weatherData = {}.obs;
   final RxBool isLoading = true.obs;
@@ -46,29 +45,36 @@ class HomeController extends GetxController {
         Placemark place = placemarks[0];
         currentCity.value = place.locality ?? '';
         print(place);
+        print(latitude);
+        print(longitude);
       });
     } catch (e) {
-      // print(('error: $e'));
+      print(('error: $e'));
     }
   }
 
   Future<void> fetchCurrentData() async {
-    APIManager.getcurrentweatherdata(
-      latitude: latitude.toString(),
-      longitude: longitude.toString(),
-    ).then((value) => {
-          Model.value = WeatherData.fromJson(value.data),
-          // print(model.hourly?.temperature2m?[0])
-        });
+    try {
+      APIManager.getcurrentweatherdata(
+        latitude: latitude.toString(),
+        longitude: longitude.toString(),
+      ).then((value) => {
+            apiModel.value = WeatherData.fromJson(value.data),
+          });
+    } catch (e) {
+      print('$e');
+    }
+  }
+
+  Future<void> methodData() async {
+    await getLocation();
+    await fetchCurrentData();
   }
 
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
-    fetchCurrentData();
-    if (isLoading.isTrue) {
-      getLocation();
-    }
+    methodData();
   }
 }

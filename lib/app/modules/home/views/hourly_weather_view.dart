@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:task2_t2/app/modules/home/controllers/home_controller.dart';
 import 'package:task2_t2/app/services/responsive_size.dart';
+import 'package:task2_t2/generated/locales.g.dart';
 import '../../../constants/image_constant.dart';
 import '../../../services/text_style_util.dart';
 
@@ -14,7 +14,7 @@ class HourlyWeather extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController controller = Get.put(HomeController());
     DateTime now = DateTime.now();
-    DateTime next24hours = now.add(Duration(hours: 24));
+    DateTime next24hours = now.add(const Duration(hours: 24));
     // List<DateTime> hours = [];
     // for (int i = 0; i < 24; i++) {
     //   hours.add(now.add(Duration(hours: i)));
@@ -25,26 +25,27 @@ class HourlyWeather extends StatelessWidget {
       width: 492.kw,
       height: 202.kh,
       decoration: BoxDecoration(
-        color: Color(0xff1C1C1E),
+        color: const Color(0xff1C1C1E),
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Hourly weather',
+            LocaleKeys.hourly_weather.tr,
             style: TextStyleUtil.SFPro600(fontSize: 17),
           ),
           8.kheightBox,
           Obx(
             () => Expanded(
               child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: controller.Model.value?.hourly?.time?.length ?? 24,
+                physics: const BouncingScrollPhysics(),
+                itemCount:
+                    controller.apiModel.value?.hourly?.time?.length ?? 24,
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
+                itemBuilder: (context, index) {
                   final hourlyTime = DateTime.parse(
-                      controller.Model.value?.hourly?.time?[index] ??
+                      controller.apiModel.value?.hourly?.time?[index] ??
                           DateTime.now().toString());
 //
 //                 DateTime hour = hours[index];
@@ -67,7 +68,7 @@ class HourlyWeather extends StatelessWidget {
                       decoration:
                           BoxDecoration(borderRadius: BorderRadius.circular(8)),
                       child: Card(
-                        color: Color(0xFF2C2C2E),
+                        color: const Color(0xFF2C2C2E),
                         child: Obx(
                           () => Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -78,7 +79,7 @@ class HourlyWeather extends StatelessWidget {
                               ),
                               SvgPicture.asset(timeToImage),
                               Text(
-                                '${controller.Model.value?.hourly?.temperature2m?[index].toInt()}°C',
+                                '${controller.apiModel.value?.hourly?.temperature2m?[index].toInt()}°C',
                                 style: TextStyleUtil.SFPro400(fontSize: 14),
                               ),
                             ],
@@ -87,7 +88,7 @@ class HourlyWeather extends StatelessWidget {
                       ),
                     );
                   } else {
-                    return SizedBox.shrink();
+                    return const SizedBox.shrink();
                   }
                   // }
                 },

@@ -55,15 +55,15 @@ class _CustomTabBarState extends State<CustomTabBar>
                 // indicatorColor: Colors.blue,
                 labelColor: Colors.white,
                 unselectedLabelColor: Color(0xFFFFFFFF),
-                tabs: const [
+                tabs: [
                   // first tab [you can add an icon using the icon property]
                   Tab(
-                    text: 'Today',
+                    text: 'today'.tr,
                   ),
 
                   // second tab [you can add an icon using the icon property]
                   Tab(
-                    text: '5 Days Ahead',
+                    text: '5_days_ahead'.tr,
                   ),
                 ],
               ),
@@ -80,7 +80,7 @@ class _CustomTabBarState extends State<CustomTabBar>
               ),
             ),
           ],
-        ),
+        ).paddingOnly(top: 18.0),
       ),
     );
   }

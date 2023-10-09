@@ -1,0 +1,12 @@
+{
+  "hello": "Hello",
+  "welcome": "Welcome to GetX",
+  "language": "Language: English",
+  "hourly_weather": "Hourly Weather",
+  "clear": "Clear",
+  "details": "Details",
+  "m_s": "m/s",
+  "today": "Today",
+  "oct": "Oct",
+  "days_ahead": "5 Days Ahead"
+}
