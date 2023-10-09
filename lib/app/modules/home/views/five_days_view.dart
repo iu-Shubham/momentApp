@@ -30,7 +30,7 @@ class FiveDaysView extends GetView<HomeController> {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
-                gradient: isToday
+                gradient: controller.today(index)
                     ? LinearGradient(
                         begin: AlignmentDirectional.topCenter,
                         end: AlignmentDirectional.bottomCenter,

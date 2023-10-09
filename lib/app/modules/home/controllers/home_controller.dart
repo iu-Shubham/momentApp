@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -17,14 +19,19 @@ class HomeController extends GetxController {
   DateTime now = DateTime.now();
   DateTime next24hours = DateTime.now().add(const Duration(hours: 24));
 
-  String TodaysDate(int index) {
+  bool today(int index) {
     final dailyTime = apiModel.value?.daily?.time?[index];
     final dateTime = DateTime.parse(dailyTime!);
-    final today = DateTime(now.year, now.month, now.day);
-    final nextDates = DateFormat('MMM dd').format(dateTime);
-    bool isToday = dateTime == today;
-    final currentDate = isToday ? LocaleKeys.today.tr : nextDates;
+    final day = DateTime(now.year, now.month, now.day);
+    bool isToday = dateTime == day;
+    return isToday;
+  }
 
+  String todaysDate(int index) {
+    final dailyTime = apiModel.value?.daily?.time?[index];
+    final dateTime = DateTime.parse(dailyTime!);
+    final nextDates = DateFormat('MMM dd').format(dateTime);
+    final currentDate = today(index) ? LocaleKeys.today.tr : nextDates;
     return currentDate;
   }
 
