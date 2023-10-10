@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:task2_t2/app/modules/home/controllers/home_controller.dart';
 import 'package:task2_t2/app/services/responsive_size.dart';
 import '../../../../generated/locales.g.dart';
@@ -18,11 +17,6 @@ class FiveDaysView extends GetView<HomeController> {
       itemBuilder: (context, index) {
         final dailyTime = controller.apiModel.value?.daily?.time?[index];
         final dateTime = DateTime.parse(dailyTime!);
-        final today = DateTime(
-            DateTime.now().year, DateTime.now().month, DateTime.now().day);
-        final nextDates = DateFormat('MMM dd').format(dateTime);
-        bool isToday = dateTime == today;
-        final todaysDate = isToday ? LocaleKeys.today.tr : nextDates;
 
         return Column(
           children: [
@@ -30,8 +24,8 @@ class FiveDaysView extends GetView<HomeController> {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
-                gradient: controller.today(index)
-                    ? LinearGradient(
+                gradient: controller.isToday(index)
+                    ? const LinearGradient(
                         begin: AlignmentDirectional.topCenter,
                         end: AlignmentDirectional.bottomCenter,
                         colors: [
@@ -42,7 +36,8 @@ class FiveDaysView extends GetView<HomeController> {
                             //       Color(0xFF316477),
                           ])
                     : null,
-                color: dateTime == today ? null : Color(0xff1C1C1E),
+                color:
+                    controller.isToday(index) ? null : const Color(0xff1C1C1E),
               ),
               child: Column(
                 children: [
@@ -52,7 +47,7 @@ class FiveDaysView extends GetView<HomeController> {
                       Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 2),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(32),
@@ -71,12 +66,13 @@ class FiveDaysView extends GetView<HomeController> {
                         ],
                       ),
                       Text(
-                        '${todaysDate}',
+                        '${controller.formatDate(index, dateTime)}',
                         style: TextStyleUtil.SFPro400(fontSize: 17.kh),
                       ),
                       Row(
                         children: [
                           SvgPicture.asset(ImageConstant.svgMoonwhite),
+                          6.kwidthBox,
                           Text(
                             LocaleKeys.clear.tr,
                             style: TextStyleUtil.SFPro400(fontSize: 17.kh),
@@ -85,7 +81,6 @@ class FiveDaysView extends GetView<HomeController> {
                       ),
                     ],
                   ).paddingOnly(bottom: 16.0),
-                  // 16.kheightBox,
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
@@ -98,11 +93,11 @@ class FiveDaysView extends GetView<HomeController> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                             horizontal: 24.0,
                           ),
-                          height: 40,
-                          width: 1.0,
+                          height: 40.kh,
+                          width: 1.0.kw,
                           color: ColorConstant.Opacity30,
                         ),
                         Expanded(
@@ -115,10 +110,11 @@ class FiveDaysView extends GetView<HomeController> {
                                   Row(
                                     children: [
                                       SvgPicture.asset(ImageConstant.svgdrop),
+                                      5.kwidthBox,
                                       Text(
                                         '30%',
                                         style: TextStyleUtil.SFPro400(
-                                          fontSize: 13,
+                                          fontSize: 13.kh,
                                           color: ColorConstant.Opacity60,
                                         ),
                                       ),
@@ -127,10 +123,11 @@ class FiveDaysView extends GetView<HomeController> {
                                   Row(
                                     children: [
                                       SvgPicture.asset(ImageConstant.svgwave),
+                                      5.kwidthBox,
                                       Text(
                                         '${controller.apiModel.value?.hourly?.precipitation?[index]}',
                                         style: TextStyleUtil.SFPro400(
-                                          fontSize: 13,
+                                          fontSize: 13.kh,
                                           color: ColorConstant.Opacity60,
                                         ),
                                       ),
@@ -146,11 +143,12 @@ class FiveDaysView extends GetView<HomeController> {
                                   Row(
                                     children: [
                                       SvgPicture.asset(ImageConstant.svgwind),
+                                      5.kwidthBox,
                                       Obx(
                                         () => Text(
                                           '${controller.apiModel.value?.hourly!.windspeed10m?[index]}',
                                           style: TextStyleUtil.SFPro400(
-                                            fontSize: 13,
+                                            fontSize: 13.kh,
                                             color: ColorConstant.Opacity60,
                                           ),
                                         ),
@@ -162,7 +160,7 @@ class FiveDaysView extends GetView<HomeController> {
                                       Text(
                                         LocaleKeys.details.tr,
                                         style: TextStyleUtil.SFPro400(
-                                          fontSize: 13,
+                                          fontSize: 13.kh,
                                           color: ColorConstant.Opacity60,
                                         ),
                                       ),
@@ -182,9 +180,9 @@ class FiveDaysView extends GetView<HomeController> {
                   ),
                 ],
               ),
-            ).paddingSymmetric(horizontal: 16.0),
+            ).paddingSymmetric(horizontal: 16.0.kw),
           ],
-        ).paddingOnly(top: 16.0);
+        ).paddingOnly(top: 16.0.kh);
       },
     );
   }

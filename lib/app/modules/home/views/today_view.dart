@@ -56,6 +56,7 @@ class TodaysView extends GetView<HomeController> {
                   Row(
                     children: [
                       SvgPicture.asset(ImageConstant.svgMoonwhite),
+                      6.kwidthBox,
                       Text(
                         LocaleKeys.clear.tr,
                         style: TextStyleUtil.SFPro400(fontSize: 17.kh),
@@ -121,55 +122,43 @@ class TodaysView extends GetView<HomeController> {
                   Row(
                     children: [
                       SvgPicture.asset(ImageConstant.svgdrop),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 4.0,
-                        ),
-                        child: Text('30%',
-                            style: TextStyleUtil.SFPro400(
-                              fontSize: 17,
-                              color: ColorConstant.Opacity60,
-                            )),
-                      ),
+                      5.kwidthBox,
+                      Text('30%',
+                          style: TextStyleUtil.SFPro400(
+                            fontSize: 17.kh,
+                            color: ColorConstant.Opacity60,
+                          )),
                     ],
                   ),
                   Row(
                     children: [
                       SvgPicture.asset(ImageConstant.svgwave),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 4.0,
-                        ),
-                        child: Obx(
-                          () => Text(
-                              '${controller.apiModel.value?.hourly?.precipitation?[0]}',
-                              style: TextStyleUtil.SFPro400(
-                                fontSize: 17,
-                                color: ColorConstant.Opacity60,
-                              )),
-                        ),
+                      5.kwidthBox,
+                      Obx(
+                        () => Text(
+                            '${controller.apiModel.value?.hourly?.precipitation?[0]}',
+                            style: TextStyleUtil.SFPro400(
+                              fontSize: 17.kh,
+                              color: ColorConstant.Opacity60,
+                            )),
                       ),
                     ],
                   ),
                 ],
-              ).paddingOnly(bottom: 10.0),
+              ).paddingOnly(bottom: 10.0.kh),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
                       SvgPicture.asset(ImageConstant.svgwind),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 4.0,
-                        ),
-                        child: Obx(
-                          () => Text(
-                            '${controller.apiModel.value?.currentWeather?.windspeed.toString()}',
-                            style: TextStyleUtil.SFPro400(
-                              fontSize: 17,
-                              color: ColorConstant.Opacity60,
-                            ),
+                      5.kwidthBox,
+                      Obx(
+                        () => Text(
+                          '${controller.apiModel.value?.currentWeather?.windspeed.toString()}',
+                          style: TextStyleUtil.SFPro400(
+                            fontSize: 17.kh,
+                            color: ColorConstant.Opacity60,
                           ),
                         ),
                       ),
@@ -180,7 +169,7 @@ class TodaysView extends GetView<HomeController> {
                       Text(
                         LocaleKeys.details.tr,
                         style: TextStyleUtil.SFPro400(
-                          fontSize: 17,
+                          fontSize: 17.kh,
                           color: ColorConstant.Opacity60,
                         ),
                       ),
@@ -194,7 +183,7 @@ class TodaysView extends GetView<HomeController> {
               ),
             ],
           ),
-        ).paddingOnly(bottom: 16.0), //Today Card
+        ).paddingOnly(bottom: 16.0.kh), //Today Card
 
         Container(
           padding: EdgeInsets.only(left: 24.kw, top: 24.kh, bottom: 16.kh),
@@ -209,7 +198,7 @@ class TodaysView extends GetView<HomeController> {
             children: [
               Text(
                 LocaleKeys.hourly_weather.tr,
-                style: TextStyleUtil.SFPro600(fontSize: 17),
+                style: TextStyleUtil.SFPro600(fontSize: 17.kh),
               ),
               8.kheightBox,
               Obx(
@@ -236,12 +225,12 @@ class TodaysView extends GetView<HomeController> {
                                     : ImageConstant.svgcloudmoon;
 
                         return Container(
-                          height: 116.kh,
-                          width: 64.kw,
                           margin: EdgeInsets.only(right: 12.kw, bottom: 12.kh),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8)),
                           child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
                             color: const Color(0xFF2C2C2E),
                             child: Obx(
                               () => Column(
@@ -250,15 +239,18 @@ class TodaysView extends GetView<HomeController> {
                                 children: [
                                   Text(
                                     '${hourlyTime.hour}:00',
-                                    style: TextStyleUtil.SFPro400(fontSize: 14),
+                                    style:
+                                        TextStyleUtil.SFPro400(fontSize: 14.kh),
                                   ),
-                                  SvgPicture.asset(timeToImage),
+                                  SvgPicture.asset(timeToImage)
+                                      .paddingSymmetric(vertical: 8.0),
                                   Text(
                                     '${controller.apiModel.value?.hourly?.temperature2m?[index].toInt()}°C',
-                                    style: TextStyleUtil.SFPro400(fontSize: 14),
+                                    style:
+                                        TextStyleUtil.SFPro400(fontSize: 14.kh),
                                   ),
                                 ],
-                              ),
+                              ).paddingAll(16.0.kh),
                             ),
                           ),
                         );
@@ -274,6 +266,6 @@ class TodaysView extends GetView<HomeController> {
           ),
         ), //Hourly weather view
       ],
-    ).paddingSymmetric(horizontal: 16.0, vertical: 16.0);
+    ).paddingSymmetric(horizontal: 16.0.kw, vertical: 16.0.kh);
   }
 }

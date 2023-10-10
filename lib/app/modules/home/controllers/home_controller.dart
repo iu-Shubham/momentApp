@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -19,42 +17,37 @@ class HomeController extends GetxController {
   DateTime now = DateTime.now();
   DateTime next24hours = DateTime.now().add(const Duration(hours: 24));
 
-  bool today(int index) {
+  bool isToday(int index) {
     final dailyTime = apiModel.value?.daily?.time?[index];
     final dateTime = DateTime.parse(dailyTime!);
-    final day = DateTime(now.year, now.month, now.day);
-    bool isToday = dateTime == day;
-    return isToday;
+    final currentDay = DateTime(now.year, now.month, now.day);
+    return dateTime == currentDay;
   }
 
-  String todaysDate(int index) {
-    final dailyTime = apiModel.value?.daily?.time?[index];
-    final dateTime = DateTime.parse(dailyTime!);
-    final nextDates = DateFormat('MMM dd').format(dateTime);
-    final currentDate = today(index) ? LocaleKeys.today.tr : nextDates;
-    return currentDate;
+  String formatDate(int index, DateTime dateTime) {
+    return isToday(index)
+        ? LocaleKeys.today.tr
+        : DateFormat('MMM dd').format(dateTime);
   }
 
   Future<void> getLocation() async {
-    bool isServiceEnabled;
-    LocationPermission locationPermission;
-
-    isServiceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!isServiceEnabled) {
-      return Future.error("Location not enabled");
-    }
-
-    locationPermission = await Geolocator.checkPermission();
-    if (locationPermission == LocationPermission.deniedForever) {
-      return Future.error("Location permissions are denied forever");
-    } else if (locationPermission == LocationPermission.denied) {
-      locationPermission == await Geolocator.requestPermission();
-      if (locationPermission == LocationPermission.denied) {
-        return Future.error("Location permissions is denied");
-      }
-    }
-
     try {
+      bool isServiceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!isServiceEnabled) {
+        return Future.error("Location not enabled");
+      }
+
+      LocationPermission locationPermission =
+          await Geolocator.checkPermission();
+      if (locationPermission == LocationPermission.deniedForever) {
+        return Future.error("Location permissions are denied forever");
+      } else if (locationPermission == LocationPermission.denied) {
+        locationPermission == await Geolocator.requestPermission();
+        if (locationPermission == LocationPermission.denied) {
+          return Future.error("Location permissions is denied");
+        }
+      }
+
       final Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
 
@@ -77,7 +70,7 @@ class HomeController extends GetxController {
 
   Future<void> fetchCurrentData() async {
     try {
-      APIManager.getcurrentweatherdata(
+      await APIManager.getcurrentweatherdata(
         latitude: latitude.toString(),
         longitude: longitude.toString(),
       ).then((value) => {

@@ -19,7 +19,7 @@ class LocaleKeys {
   static const m_s = 'm_s';
   static const today = 'today';
   static const oct = 'oct';
-  static const days_ahead = '5_days_ahead';
+  static const days_ahead = '5 days ahead';
 }
 
 class Locales {

@@ -56,9 +56,9 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
               ],
-            ).paddingOnly(top: 18.0),
+            ).paddingOnly(top: 18.0.kh),
           ),
-        ),
+        ).paddingOnly(top: 16.kh),
       ),
     );
   }
